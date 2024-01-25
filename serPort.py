@@ -53,7 +53,7 @@ class SrlPrtClass:
         print("connect serial", self.portsAvalable[portNumber])
         print(portNumber)
         self.opendPort = serial.Serial((self.portsAvalable[portNumber]),
-                                           baudrate=9600,
+                                           baudrate=38400,
                                            stopbits=serial.STOPBITS_ONE,
                                            bytesize=serial.EIGHTBITS
                                            )
