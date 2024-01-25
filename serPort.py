@@ -65,5 +65,8 @@ class SrlPrtClass:
 
     def serial_read(self, nOfBytes):
 # def serial_read();
-        self.item = q.Get()
+        self.item = q.get()
         self.bufer = bytes(self.opendPort.read(nOfBytes))
+        print(self.bufer)
+        q.task_done()
+

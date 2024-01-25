@@ -53,3 +53,7 @@ class TkGuiClass:
         print("connect serial", self.ser.portsAvalable[self.comboClientSer.current()])
         self.ser.portSel = self.comboClientSer.current()
         self.ser.serial_open(self.ser.portSel)
+        self.ser.serial_write()
+        self.ser.serial_read(12)
+        print("dbg")
+
