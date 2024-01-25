@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter.ttk import Combobox
 from tkinter.ttk import Spinbox
+from tkinter import Text
 from tkinter.messagebox import showinfo
-#import serial
 import binascii
 import serPort
 #import saveLoad
@@ -38,8 +38,20 @@ class TkGuiClass:
         self.lblServer = tk.Label(self.window, text="------")
         self.lblServer.grid(column=2, row=0)
 
-        self.buttonConnectSerial = tk.Button(self.window, text="Read from server", command=self.connect_Serial)
+        self.buttonConnectSerial = tk.Button(self.window, text="Connect", command=self.connect_Serial)
         self.buttonConnectSerial.grid(column=3, row=0)
+
+        self.buttonWriteSerial = tk.Button(self.window, text="Write", command=self.connect_Serial)
+        self.buttonWriteSerial.grid(column=4, row=0)
+
+        self.buttonReadSerial = tk.Button(self.window, text="Read", command=self.connect_Serial)
+        self.buttonReadSerial.grid(column=5, row=0)
+        
+        self.lblDataToSend = tk.Label(self.window, text="data to send")
+        self.lblDataToSend.grid(column=0, row=1)
+
+        self.textBox = tk.Text(self.window, height = 1 , width = 25) 
+        self.textBox.grid(column=1, row=1) 
         # start main loop
         self.window.mainloop()
 
@@ -54,6 +66,6 @@ class TkGuiClass:
         self.ser.portSel = self.comboClientSer.current()
         self.ser.serial_open(self.ser.portSel)
         self.ser.serial_write()
-        self.ser.serial_read(12)
+        self.ser.serial_read(1)
         print("dbg")
 
