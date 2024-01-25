@@ -1,7 +1,11 @@
 import serial
 import glob
 import sys
-#import threading
+import threading
+import queue
+
+q = queue.Queue()
+
 
 class SrlPrtClass:
     def __init__(self):
@@ -60,16 +64,6 @@ class SrlPrtClass:
         self.opendPort.write(self.req)
 
     def serial_read(self, nOfBytes):
-        self.start = bytes(self.opendPort.read(nOfBytes))
-        self.length = self.start[1]
-        # self.length = int.from_bytes(self.start[1], byteorder='big')
-
-        self.bufer = bytes()
-        self.stop = 1
-        while (self.stop):
-            self.ansver = bytes(serial.read(1))
-            if self.ansver != bytes([0xde]):
-                self.bufer += self.ansver
-            else:
-                self.stop = 0
 # def serial_read();
+        self.item = q.Get()
+        self.bufer = bytes(self.opendPort.read(nOfBytes))
