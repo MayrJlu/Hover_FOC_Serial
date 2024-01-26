@@ -4,7 +4,7 @@ import sys
 import threading
 import queue
 
-q = queue.Queue()
+#q = queue.Queue()
 
 
 class SrlPrtClass:
@@ -59,9 +59,9 @@ class SrlPrtClass:
                                            )
 
 
-    def serial_write(self):
-        self.req = bytes([0xff, 0xff, 0xff, 0xff, 0xff, 0xff])
-        self.opendPort.write(self.req)
+    def serial_write(self, inString):
+        print(inString)
+        self.opendPort.write(inString)
 
     def serial_read(self):
         self.srlThread = threading.Thread(target = self.read_byte, daemon = True)
