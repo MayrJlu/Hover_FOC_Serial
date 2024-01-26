@@ -63,10 +63,13 @@ class SrlPrtClass:
         self.req = bytes([0xff, 0xff, 0xff, 0xff, 0xff, 0xff])
         self.opendPort.write(self.req)
 
-    def serial_read(self, nOfBytes):
-# def serial_read();
-        self.item = q.get()
-        self.bufer = bytes(self.opendPort.read(nOfBytes))
-        print(self.bufer)
-        q.task_done()
+    def serial_read(self):
+        self.srlThread = threading.Thread(target = self.read_byte, daemon = True)
+        self.srlThread.start()
+        #self.item = q.get()
+    def read_byte(self):
+        while True:
+            self.bufer = bytes(self.opendPort.read(1))
+            print(self.bufer)
+            #q.task_done()
 

@@ -66,6 +66,6 @@ class TkGuiClass:
         self.ser.portSel = self.comboClientSer.current()
         self.ser.serial_open(self.ser.portSel)
         self.ser.serial_write()
-        self.ser.serial_read(1)
+        self.ser.serial_read()
         print("dbg")
 
