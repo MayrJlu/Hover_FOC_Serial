@@ -52,6 +52,8 @@ class SrlPrtClass:
     #
     #################################################
 
+
+################## open serial port
     def serial_open(self, portNumber):
         print("connect serial", self.portsAvalable[portNumber])
         print(portNumber)
@@ -64,8 +66,9 @@ class SrlPrtClass:
 
     def serial_write(self, inString):
         print(inString)
-        self.opendPort.write(inString)
+        self.opendPort.write(to_bytes(inString))
 
+################# thread to read serial
     def serial_read(self):
         self.srlThread = threading.Thread(target = self.read_byte, daemon = True)
         self.srlThread.start()
