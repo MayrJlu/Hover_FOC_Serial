@@ -96,8 +96,8 @@ class TkGuiClass:
         print(rpm)
         print(self.sinA)
         print(self.cosA)
-        self.newX2 = self.x2 + self.sinA * 150
-        self.newY2 = self.y2 + self.cosA * 150
+        self.newX2 = self.x2 + (150 - (self.cosA * 150))
+        self.newY2 = self.y2 + self.sinA * 150
         self.x2 = self.newX2
         self.y2 = self.newY2
         print(self.newX2)
