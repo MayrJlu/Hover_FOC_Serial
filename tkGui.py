@@ -5,6 +5,7 @@ from tkinter import Canvas
 from tkinter import Text
 from tkinter.messagebox import showinfo
 import binascii
+from math import *
 import serPort
 #import saveLoad
 
@@ -26,22 +27,22 @@ class TkGuiClass:
         self.window = tk.Tk()
         self.window.title("Hover_FOC_Serial")
 
-        self.panel = tk.Canvas(width=640, height=320, bg='white')
+        self.panel = tk.Canvas(width=640, height=320, bg='black')
         self.panel.grid()
-        self.panel.create_oval(10, 10, 310, 310, fill="yellow", outline="green", width=5)
+        self.panel.create_oval(10, 10, 310, 310, fill="black", outline="gray", width=5)
+        self.panel.create_oval(100, 100, 220, 220, fill="black", outline="gray", width=5)
         self.panel.create_text(160, 160,
-              text="0 rpm",
-              font="Verdana 24")
-        self.line_x1y1_x2y2 = (10, 10, 310, 310)
-        print(self.line_x1y1_x2y2)
+              text="1200\n rpm",
+              font="Verdana 24",
+              fill="white")
         self.line_x1y1_x2y2 = self.calc_rpm_line(2)
         print(self.line_x1y1_x2y2)
         #self.panel.create_line(10, 10, 310, 310)
 
-        self.panel.create_line(self.line_x1y1_x2y2)
+        self.panel.create_line(self.line_x1y1_x2y2, fill="blue", width=5)
 
-        self.lblSelectPort = tk.Label(self.window, text="select port")
-        self.lblSelectPort.grid(column=0, row=0)
+        #self.lblSelectPort = tk.Label(self.window, text="select port")
+        #self.lblSelectPort.grid(column=0, row=0)
 
         self.comboSelectPortSer = Combobox(self.window)
         self.comboSelectPortSer['values'] = (self.ports + ["select port"])
@@ -84,14 +85,21 @@ class TkGuiClass:
         print("dbg")
 
     def calc_rpm_line(self, rpm):
-        self.x1 = 100
-        self.y1 = 110
+        # max rpm = 1200
+        # max kmh = 60
+        self.x1 = 160
+        self.y1 = 160
         self.x2 = 10
-        self.y2 = 110
+        self.y2 = 160
+        self.sinA = sin(210)
+        self.cosA = cos(210)
+        print(rpm)
+        print(self.sinA)
+        print(self.cosA)
+        self.newX2 = self.x2 + self.sinA * 150
+        self.newY2 = self.y2 + self.cosA * 150
+        self.x2 = self.newX2
+        self.y2 = self.newY2
+        print(self.newX2)
+        print(self.newY2)
         return (self.x1, self.y1, self.x2, self.y2)
-
-
-
-
-
-        
