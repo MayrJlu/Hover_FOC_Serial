@@ -50,17 +50,17 @@ class TkGuiClass:
         self.comboSelectPortSer.bind("<<ComboboxSelected>>", self.callbackFuncClient)
         self.comboSelectPortSer.grid(column=1, row=0)
 
-        self.lblBaud = tk.Label(self.window, text="------")
-        self.lblBaud.grid(column=2, row=0)
+        #self.lblBaud = tk.Label(self.window, text="------")
+        #self.lblBaud.grid(column=2, row=0)
 
         self.buttonConnectSerial = tk.Button(self.window, text="Connect", command=self.connect_Serial)
-        self.buttonConnectSerial.grid(column=3, row=0)
+        self.buttonConnectSerial.grid(column=2, row=0)
 
         self.buttonWriteSerial = tk.Button(self.window, text="Write", command=self.connect_Serial)
-        self.buttonWriteSerial.grid(column=4, row=0)
+        self.buttonWriteSerial.grid(column=3, row=0)
 
         self.buttonReadSerial = tk.Button(self.window, text="Read", command=self.connect_Serial)
-        self.buttonReadSerial.grid(column=5, row=0)
+        self.buttonReadSerial.grid(column=4, row=0)
         
         self.lblDataToSend = tk.Label(self.window, text="data to send")
         self.lblDataToSend.grid(column=0, row=1)
