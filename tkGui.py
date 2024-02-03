@@ -15,7 +15,6 @@ import serPort
 
 
 
-
 class TkGuiClass:
 
     def __init__(self):
@@ -33,6 +32,13 @@ class TkGuiClass:
         self.panel.create_text(160, 160,
               text="0 rpm",
               font="Verdana 24")
+        self.line_x1y1_x2y2 = (10, 10, 310, 310)
+        print(self.line_x1y1_x2y2)
+        self.line_x1y1_x2y2 = self.calc_rpm_line(2)
+        print(self.line_x1y1_x2y2)
+        #self.panel.create_line(10, 10, 310, 310)
+
+        self.panel.create_line(self.line_x1y1_x2y2)
 
         self.lblSelectPort = tk.Label(self.window, text="select port")
         self.lblSelectPort.grid(column=0, row=0)
@@ -76,3 +82,16 @@ class TkGuiClass:
         #self.ser.serial_write(self.textBox.get(1.0))
         self.ser.serial_read()
         print("dbg")
+
+    def calc_rpm_line(self, rpm):
+        self.x1 = 100
+        self.y1 = 110
+        self.x2 = 10
+        self.y2 = 110
+        return (self.x1, self.y1, self.x2, self.y2)
+
+
+
+
+
+        
