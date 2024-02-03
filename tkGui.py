@@ -87,19 +87,19 @@ class TkGuiClass:
     def calc_rpm_line(self, rpm):
         # max rpm = 1200
         # max kmh = 60
+        self.rOut = 150
+        self.rIn = 60
         self.x1 = 160
         self.y1 = 160
         self.x2 = 10
         self.y2 = 160
-        self.sinA = sin(210)
-        self.cosA = cos(210)
-        print(rpm)
-        print(self.sinA)
-        print(self.cosA)
-        self.newX2 = self.x2 + (150 - (self.cosA * 150))
-        self.newY2 = self.y2 + self.sinA * 150
-        self.x2 = self.newX2
-        self.y2 = self.newY2
-        print(self.newX2)
-        print(self.newY2)
+        self.angle = 110
+        self.sinA = sin(self.angle)
+        self.cosA = cos(self.angle)
+        if self.angle > 180:
+            self.x1 = self.x1 - self.rIn
+            self.x1 = self.x1 + self.cosA * self.rIn + self.rIn
+            self.y1 = self.y1 + self.sinA * self.rIn
+            self.x2 = self.x2 + self.cosA * self.rOut + self.rOut
+            self.y2 = self.y2 + self.sinA * self.rOut
         return (self.x1, self.y1, self.x2, self.y2)
