@@ -35,11 +35,12 @@ class TkGuiClass:
               text="1200\n rpm",
               font="Verdana 24",
               fill="white")
-        self.line_x1y1_x2y2 = self.calc_rpm_line(1200)
+        self.line_x1y1_x2y2 = self.calc_rpm_line(0)
         print(self.line_x1y1_x2y2)
         #self.panel.create_line(10, 10, 310, 310)
 
         self.panel.create_line(self.line_x1y1_x2y2, fill="blue", width=5)
+        self.calc_div_lines(12, 240, 210)
 
         #self.lblSelectPort = tk.Label(self.window, text="select port")
         #self.lblSelectPort.grid(column=0, row=0)
@@ -54,7 +55,7 @@ class TkGuiClass:
         #self.lblBaud.grid(column=2, row=0)
 
         self.buttonConnectSerial = tk.Button(self.window, text="Connect", command=self.connect_Serial)
-        self.buttonConnectSerial.grid(column=2, row=0)
+        self.buttonConnectSerial.grid(column=1, row=1)
 
         self.buttonWriteSerial = tk.Button(self.window, text="Write", command=self.connect_Serial)
         self.buttonWriteSerial.grid(column=3, row=0)
@@ -66,7 +67,7 @@ class TkGuiClass:
         self.lblDataToSend.grid(column=0, row=1)
 
         self.textBox = tk.Text(self.window, height = 1 , width = 25) 
-        self.textBox.grid(column=1, row=1) 
+        self.textBox.grid(column=1, row=2) 
         # start main loop
         self.window.mainloop()
 
@@ -97,7 +98,7 @@ class TkGuiClass:
         self.rIn = 60
         self.x1 = 160
         self.y1 = 160
-        self.x2 = 10
+        self.x2 = 310
         self.y2 = 160
         self.sinA = sin(self.angle)
         self.cosA = cos(self.angle)
@@ -106,6 +107,35 @@ class TkGuiClass:
         self.x1 = self.x1 - self.rIn
         self.x1 = self.x1 + self.cosA * self.rIn + self.rIn
         self.y1 = self.y1 - self.sinA * self.rIn
-        self.x2 = self.x2 + self.cosA * self.rOut + self.rOut
+        self.x2 = self.x2 + self.cosA * self.rOut - self.rOut
         self.y2 = self.y2 - self.sinA * self.rOut
         return (self.x1, self.y1, self.x2, self.y2)
+
+    def calc_div_lines(self, nLines, nDegrees, minMarkDegrees):
+        self.maxFull = 360
+        self.maxAngle = nDegrees
+        self.minVal = minMarkDegrees#210
+        # max kmh = 60
+        self.lineDegree = (self.maxAngle/nLines)
+        print(self.lineDegree)
+        i = 0
+        while i < nLines:
+            i = i + 1
+            self.angle = radians(self.minVal - i * self.lineDegree)
+            print(self.angle)
+            self.rOut = 150
+            self.rIn = 130
+            self.x1 = 160
+            self.y1 = 160
+            self.x2 = 310
+            self.y2 = 160
+            self.sinA = sin(self.angle)
+            self.cosA = cos(self.angle)
+            print(self.sinA)
+            print(self.cosA)
+            self.x1 = self.x1 - self.rIn
+            self.x1 = self.x1 + self.cosA * self.rIn + self.rIn
+            self.y1 = self.y1 - self.sinA * self.rIn
+            self.x2 = self.x2 + self.cosA * self.rOut - self.rOut
+            self.y2 = self.y2 - self.sinA * self.rOut
+            self.panel.create_line(self.x1, self.y1, self.x2, self.y2, fill="gray", width=3)
