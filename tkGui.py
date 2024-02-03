@@ -35,7 +35,7 @@ class TkGuiClass:
               text="1200\n rpm",
               font="Verdana 24",
               fill="white")
-        self.line_x1y1_x2y2 = self.calc_rpm_line(20)
+        self.line_x1y1_x2y2 = self.calc_rpm_line(1200)
         print(self.line_x1y1_x2y2)
         #self.panel.create_line(10, 10, 310, 310)
 
@@ -87,10 +87,11 @@ class TkGuiClass:
     def calc_rpm_line(self, rpm):
         self.maxRpm = 1200
         self.maxAngle = 240
+        self.minVal = 210
         # max kmh = 60
         self.rpmDegree = rpm/(self.maxRpm/self.maxAngle)
         print(self.rpmDegree)
-        self.angle = radians(120)
+        self.angle = radians(self.minVal - self.rpmDegree)
         print(self.angle)
         self.rOut = 150
         self.rIn = 60
@@ -104,7 +105,7 @@ class TkGuiClass:
         print(self.cosA)
         self.x1 = self.x1 - self.rIn
         self.x1 = self.x1 + self.cosA * self.rIn + self.rIn
-        self.y1 = self.y1 + self.sinA * self.rIn
+        self.y1 = self.y1 - self.sinA * self.rIn
         self.x2 = self.x2 + self.cosA * self.rOut + self.rOut
-        self.y2 = self.y2 + self.sinA * self.rOut
+        self.y2 = self.y2 - self.sinA * self.rOut
         return (self.x1, self.y1, self.x2, self.y2)
