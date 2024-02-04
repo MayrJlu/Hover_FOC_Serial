@@ -57,17 +57,14 @@ class TkGuiClass:
         self.buttonConnectSerial = tk.Button(self.window, text="Connect", command=self.connect_Serial)
         self.buttonConnectSerial.grid(column=1, row=1)
 
-        self.buttonWriteSerial = tk.Button(self.window, text="Write", command=self.connect_Serial)
-        self.buttonWriteSerial.grid(column=3, row=0)
-
-        self.buttonReadSerial = tk.Button(self.window, text="Read", command=self.connect_Serial)
-        self.buttonReadSerial.grid(column=4, row=0)
+        self.buttonWriteSerial = tk.Button(self.window, text="Write", command=self.write_Serial)
+        self.buttonWriteSerial.grid(column=1, row=2)
         
         self.lblDataToSend = tk.Label(self.window, text="data to send")
         self.lblDataToSend.grid(column=0, row=1)
 
         self.textBox = tk.Text(self.window, height = 1 , width = 25) 
-        self.textBox.grid(column=1, row=2) 
+        self.textBox.grid(column=0, row=2) 
         # start main loop
         self.window.mainloop()
 
@@ -81,8 +78,11 @@ class TkGuiClass:
         print("connect serial", self.ser.portsAvalable[self.comboSelectPortSer.current()])
         self.ser.portSel = self.comboSelectPortSer.current()
         self.ser.serial_open(self.ser.portSel)
-        #self.ser.serial_write(self.textBox.get(1.0))
         self.ser.serial_read()
+
+    def write_Serial(self):
+        print("write serial", self.textBox.get(4.0))
+        self.ser.serial_write(self.textBox.get(1.0))
         print("dbg")
 
     def calc_rpm_line(self, rpm):
