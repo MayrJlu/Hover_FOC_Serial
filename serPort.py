@@ -3,7 +3,7 @@ import glob
 import sys
 import threading
 import queue
-import hoverCommands
+#import hoverCommands
 
 #q = queue.Queue()
 
@@ -15,8 +15,8 @@ class SrlPrtClass:
         self.portsAvalable = self.serial_ports()
         self.portSel = []
 
-        self.hvr = hoverCommands.HvrCmmndsClass()
-        self.hvr.get_parametr(3)
+#        self.hvr = hoverCommands.HvrCmmndsClass()
+#        self.hvr.get_parametr(3)
 
     #################################################
     # function for finding all connected serial ports
@@ -74,6 +74,6 @@ class SrlPrtClass:
         #self.item = q.get()
     def read_byte(self):
         while True:
-            self.bufer = bytes(self.opendPort.read(1))
+            self.bufer = self.opendPort.read(1)
             print(self.bufer)
             #q.task_done()
