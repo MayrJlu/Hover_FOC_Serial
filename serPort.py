@@ -65,10 +65,7 @@ class SrlPrtClass:
 
 
     def serial_write(self, inString):
-        print(inString)
-        self.tmp = to_bytes(inString)
-        print(self.tmpin)
-        self.opendPort.write(self.tmpin)
+        self.opendPort.write(bytes(inString, encoding="raw_unicode_escape"))
 
 ################# thread to read serial
     def serial_read(self):
