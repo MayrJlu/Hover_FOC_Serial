@@ -81,8 +81,9 @@ class TkGuiClass:
         self.ser.serial_read()
 
     def write_Serial(self):
-        print("write serial", self.textBox.get(4.0))
-        self.ser.serial_write(self.textBox.get(1.0))
+        self.txt = self.textBox.get(1.0, 'end-1c')
+        print("write serial", self.txt)
+        self.ser.serial_write(self.txt)
         print("dbg")
 
     def calc_rpm_line(self, rpm):
