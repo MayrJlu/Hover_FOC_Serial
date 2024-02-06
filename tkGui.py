@@ -31,16 +31,8 @@ class TkGuiClass:
         self.panel.grid()
         self.panel.create_oval(10, 10, 310, 310, fill="black", outline="gray", width=5)
         self.panel.create_oval(100, 100, 220, 220, fill="black", outline="gray", width=5)
-        self.panel.create_text(160, 160,
-              text="1200\n rpm",
-              font="Verdana 24",
-              fill="white")
-        self.line_x1y1_x2y2 = self.calc_rpm_line(0)
-        print(self.line_x1y1_x2y2)
-        #self.panel.create_line(10, 10, 310, 310)
-
-        self.panel.create_line(self.line_x1y1_x2y2, fill="blue", width=5)
-        self.calc_div_lines(12, 240, 210)
+        self.calc_div_lines(13, 260, 210)
+        self.calc_rpm_line(1160)
 
         #self.lblSelectPort = tk.Label(self.window, text="select port")
         #self.lblSelectPort.grid(column=0, row=0)
@@ -48,7 +40,7 @@ class TkGuiClass:
         self.comboSelectPortSer = Combobox(self.window)
         self.comboSelectPortSer['values'] = (self.ports + ["select port"])
         self.comboSelectPortSer.current(1)
-        self.comboSelectPortSer.bind("<<ComboboxSelected>>", self.callbackFuncClient)
+        self.comboSelectPortSer.bind("<<ComboboxSelected>>", self.callbackFuncSelectPortSer)
         self.comboSelectPortSer.grid(column=1, row=0)
 
         #self.lblBaud = tk.Label(self.window, text="------")
@@ -69,7 +61,7 @@ class TkGuiClass:
         self.window.mainloop()
 
 
-    def callbackFuncClient(self, event):
+    def callbackFuncSelectPortSer(self, event):
         print("New Element Selected")
         print(self.ser.portsAvalable[self.comboSelectPortSer.current()])
         #print(self.serClient)
@@ -110,7 +102,13 @@ class TkGuiClass:
         self.y1 = self.y1 - self.sinA * self.rIn
         self.x2 = self.x2 + self.cosA * self.rOut - self.rOut
         self.y2 = self.y2 - self.sinA * self.rOut
-        return (self.x1, self.y1, self.x2, self.y2)
+        self.panel.create_text(160, 160,
+              text="1200\n rpm",
+              font="Verdana 24",
+              fill="white")
+
+        self.panel.create_line(self.x1, self.y1, self.x2, self.y2, fill="blue", width=5)
+        #return (self.x1, self.y1, self.x2, self.y2)
 
     def calc_div_lines(self, nLines, nDegrees, minMarkDegrees):
         self.maxFull = 360
@@ -121,8 +119,8 @@ class TkGuiClass:
         print(self.lineDegree)
         i = 0
         while i < nLines:
-            i = i + 1
             self.angle = radians(self.minVal - i * self.lineDegree)
+            i = i + 1
             print(self.angle)
             self.rOut = 150
             self.rIn = 130

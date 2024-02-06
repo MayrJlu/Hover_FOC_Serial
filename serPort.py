@@ -8,12 +8,15 @@ import queue
 #q = queue.Queue()
 
 
+
+
 class SrlPrtClass:
     def __init__(self):
 
         print("SrlPrtClass __init__")
         self.portsAvalable = self.serial_ports()
         self.portSel = []
+        self.r_p_m = 0
 
 #        self.hvr = hoverCommands.HvrCmmndsClass()
 #        self.hvr.get_parametr(3)
@@ -74,6 +77,9 @@ class SrlPrtClass:
         #self.item = q.get()
     def read_byte(self):
         while True:
-            self.bufer = self.opendPort.read(1)
-            print(self.bufer)
+            self.bufer = self.opendPort.readline()
+            self.bufLen = len(self.bufer)
+            if self.bufLen == 18:
+                self.r_p_m = self.bufer[11]
+                print(self.r_p_m)
             #q.task_done()
