@@ -38,6 +38,43 @@
 
 class HvrCmmndsClass:
     def __init__(self):
+        self.par_ctrl_mod = 0       #Ctrl mode 1:Voltage 2:Speed 3:Torque 	            Yes 	No
+        self.par_ctrl_typ = 0       #Ctrl type 0:Commutation 1:Sinusoidal 2:FOC 	    Yes 	No
+        self.par_i_mot_max = 0      #Max phase current A 	                            Yes 	Yes
+        self.par_n_mot_max  = 0     #Max motor RPM 	                                    Yes 	Yes
+        self.par_fi_weak_ena = 0    #Enable field weak 0:OFF 1:ON 	                    Yes 	No
+        self.par_fi_weak_hi  = 0    #Field weak high RPM 	                            Yes 	No
+        self.par_fi_weak_lo  = 0    #Field weak low RPM 	                            Yes 	No
+        self.par_fi_weak_max  = 0   #Field weak max current A(FOC only) 	            Yes 	No
+        self.par_pha_adv_max = 0    #Max Phase Adv angle Deg(SIN only) 	                Yes 	No
+        self.var_in1_raw = 0        #Input1 raw value 	                                No     	No
+        self.par_in1_typ = 0        #Input1 type 0:Disabled, 1:Normal Pot,
+                                    #2:Middle Resting Pot, 3:Auto-detect 	            Yes 	Yes
+        self.par_in1_min = 0        #Input1 minimum value 	                            Yes 	Yes
+        self.par_in1_mid = 0        #Input1 middle value 	                            Yes 	Yes
+        self.par_in1_max = 0        #Input1 maximum value 	                            Yes 	Yes
+        self.var_in1_cmd = 0        #Input1 command value 	                            No 	    No
+        self.var_in2_raw = 0        #Input2 raw value 	                                No 	    No
+        self.par_in2_typ = 0        #Input2 type 0:Disabled, 1:Normal Pot,
+                                    #2:Middle Resting Pot, 3:Auto-detect 	            Yes 	Yes
+        self.par_in2_min = 0        #Input2 minimum value 	                            Yes 	Yes
+        self.par_in2_mid = 0        #Input2 middle value 	                            Yes 	Yes
+        self.par_in2_max = 0        #Input2 maximum value 	                            Yes 	Yes
+        self.var_in2_cmd = 0        #Input2 command value 	                            No 	    No
+        self.var_dc_curr = 0        #Total DC Link current A *100 	                    No 		No
+        self.var_ldc_curr = 0       #Left DC Link current A *100 	                    No 		No
+        self.var_rdc_curr = 0       #Right DC Link current A *100 	                    No 		No
+        self.var_cmdl = 0           #Left Motor Command RPM 	                        No 		No
+        self.var_cmdr = 0           #Right Motor Command RPM 	                        No 		No
+        self.var_spd_avg = 0        #Motor Measured Avg RPM 	                        No 		No
+        self.var_spdl = 0           #Left Motor Measured RPM 	                        No 		No
+        self.var_spdr = 0           #Right Motor Measured RPM 	                        No 		No
+        self.var_rate = 0           #Rate *10 	                                        No 		No
+        self.var_spd_coef = 0       #Speed Coefficient *10 	                            No 		No
+        self.var_str_coef = 0       #Steer Coefficient *10 	                            No 		No
+        self.var_batv = 0           #Calibrated Battery Voltage *100 	                No 		No
+        self.var_temp = 0           #Calibrated Temperature °C *10 	                    No 		No
+        self.hvrRpm = 0
         self.command = (
             "HELP",   #0
             "GET",    #1
@@ -46,6 +83,43 @@ class HvrCmmndsClass:
             "SAVE",   #4
             "WATHC"   #5
         )
+
+        self.parametersDict = {
+            "CTRL_MOD":     self.par_ctrl_mod,   #0
+            "CTRL_TYP":     self.par_ctrl_typ,   #1
+            "I_MOT_MAX":    self.par_i_mot_max,  #2
+            "N_MOT_MAX":    self.par_n_mot_max,  #3
+            "FI_WEAK_ENA":  self.par_fi_weak_ena,#4
+            "FI_WEAK_HI":   self.par_fi_weak_hi, #5
+            "FI_WEAK_LO":   self.par_fi_weak_lo, #6
+            "FI_WEAK_MAX":  self.par_fi_weak_max,#7
+            "PHA_ADV_MAX":  self.par_pha_adv_max,#8
+            "IN1_RAW":      self.var_in1_raw,    #9
+            "IN1_TYP":      self.par_in1_typ,    #10
+            "IN1_MIN":      self.par_in1_min,    #11
+            "IN1_MID":      self.par_in1_mid,    #12
+            "IN1_MAX":      self.par_in1_max,    #13
+            "IN1_CMD":      self.var_in1_cmd,    #14
+            "IN2_RAW":      self.var_in2_raw,    #15
+            "IN2_TYP":      self.par_in2_typ,    #16
+            "IN2_MIN":      self.par_in2_min,    #17
+            "IN2_MID":      self.par_in2_mid,    #18
+            "IN2_MAX":      self.par_in2_max,    #19
+            "IN2_CMD":      self.var_in2_cmd,    #20
+            "DC_CURR":      self.var_dc_curr,    #21
+            "LDC_CURR":     self.var_ldc_curr,   #22
+            "RDC_CURR":     self.var_rdc_curr,   #23
+            "CMDL":         self.var_cmdl,       #24
+            "CMDR":         self.var_cmdr,       #25
+            "SPD_AVG":      self.var_spd_avg,    #26
+            "SPDL":         self.var_spdl,       #27
+            "SPDR":         self.var_spdr,       #28
+            "RATE":         self.var_rate,       #29
+            "SPD_COEF":     self.var_spd_coef,   #30
+            "STR_COEF":     self.var_str_coef,   #31
+            "BATV":         self.var_batv,       #32
+            "TEMP":         self.var_temp,       #33
+        }
         self.parameters = (
             "CTRL_MOD",      #0
             "CTRL_TYP",      #1

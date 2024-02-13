@@ -7,6 +7,7 @@ from tkinter.messagebox import showinfo
 import binascii
 from math import *
 import serPort
+import hoverCommands
 #import saveLoad
 
 ##import screenRecogniser
@@ -21,6 +22,7 @@ class TkGuiClass:
     def __init__(self):
         print("TkGuiClass __init__")
 
+        self.hvrCmd = hoverCommands.HvrCmmndsClass()
         self.ser = serPort.SrlPrtClass()
         self.ports = self.ser.serial_ports()
         print("availible ports" + str(self.ports))
@@ -32,7 +34,6 @@ class TkGuiClass:
         self.panel.create_oval(10, 10, 310, 310, fill="black", outline="gray", width=5)
         self.panel.create_oval(100, 100, 220, 220, fill="black", outline="gray", width=5)
         self.calc_div_lines(13, 260, 210)
-        self.calc_rpm_line(1160)
 
         #self.lblSelectPort = tk.Label(self.window, text="select port")
         #self.lblSelectPort.grid(column=0, row=0)
@@ -109,6 +110,9 @@ class TkGuiClass:
 
         self.panel.create_line(self.x1, self.y1, self.x2, self.y2, fill="blue", width=5)
         #return (self.x1, self.y1, self.x2, self.y2)
+
+    def rpm_line_set(self, rpm):
+        self.calc_rpm_line(rpm)
 
     def calc_div_lines(self, nLines, nDegrees, minMarkDegrees):
         self.maxFull = 360

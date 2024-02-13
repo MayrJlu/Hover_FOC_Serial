@@ -3,7 +3,8 @@ import glob
 import sys
 import threading
 import queue
-#import hoverCommands
+#import tkGui
+import hoverCommands
 
 #q = queue.Queue()
 
@@ -81,5 +82,6 @@ class SrlPrtClass:
             self.bufLen = len(self.bufer)
             if self.bufLen == 18:
                 self.r_p_m = self.bufer[11]
+                gui.hvrCmd.hvrRpm = self.r_p_m
                 print(self.r_p_m)
             #q.task_done()
